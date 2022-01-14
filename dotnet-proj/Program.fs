@@ -1,5 +1,5 @@
 ﻿open CommandLine
-open System.IO
+open ProjUtils
 
 // For more information see https://aka.ms/fsharp-console-apps
 type Options = {
@@ -10,7 +10,10 @@ type Options = {
     create : bool;
 
     [<CommandLine.Option('p', "property", Required = false, HelpText = "Path to property")>]
-    proeprtyValue : string;
+    property : string;
+
+    [<CommandLine.Option('v', "value", Default = "", Required = false, HelpText = "Path to property")>]
+    propertyValue : string;
 }
     
 
@@ -18,11 +21,6 @@ let getActualProject project =
     // TODO: make auto-detect
     project
 
-let createDirectoryBuild file =
-    let content = "<Project>\n\n</Project>"
-    File.WriteAllText(file, content)
-    let fullFile = Path.GetFullPath file
-    printfn $"Written to {fullFile}"
 
 CommandLine.Parser.Default.ParseArguments<Options>(System.Environment.GetCommandLineArgs())
     .WithParsed<Options>(fun o ->
@@ -30,6 +28,8 @@ CommandLine.Parser.Default.ParseArguments<Options>(System.Environment.GetCommand
 
         if o.create then
             createDirectoryBuild prj
+        else
+            addProperty prj o.property o.propertyValue
 
     ) |> ignore
 

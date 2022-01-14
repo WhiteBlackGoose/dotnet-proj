@@ -1,3 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
-
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <Authors>Me</Authors>
+  </PropertyGroup>
 </Project>
