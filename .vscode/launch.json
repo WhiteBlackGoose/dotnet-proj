@@ -10,7 +10,10 @@
             "request": "launch",
             "preLaunchTask": "Build Debug dotnet-proj",
             "program": "${workspaceFolder}/dotnet-proj/bin/Debug/net6.0/dotnet-proj.dll",
-            "args": [],
+            "args": [
+                "--create",
+                "--object=./tests/Directory.Build.props"
+            ],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false
