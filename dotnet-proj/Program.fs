@@ -2,18 +2,22 @@
 open ProjUtils
 
 // For more information see https://aka.ms/fsharp-console-apps
-type Options = {
+[<Verb("create", HelpText = "Create new manifest file")>]
+type CreateOptions = {
+    [<CommandLine.Option('o', "object", Required = true, HelpText = "Path to Directory.Build.* or csproj etc.")>]
+    project : string;
+}
+
+[<Verb("add", HelpText = "Add property to an existing file")>]
+type AddOptions = {
     [<CommandLine.Option('o', "object", Required = false, HelpText = "Path to Directory.Build.* or csproj etc.")>]
     project : string;
 
-    [<CommandLine.Option('c', "create", Default = false, Required = false, HelpText = "Create a file with the given name")>]
-    create : bool;
-
-    [<CommandLine.Option('p', "property", Required = false, HelpText = "Path to property")>]
+    [<CommandLine.Option('p', "property", Required = true, HelpText = "Property name")>]
     property : string;
 
     [<CommandLine.Option('v', "value", Default = "", Required = false, HelpText = "Path to property")>]
-    propertyValue : string;
+    value : string;
 }
     
 
@@ -22,14 +26,16 @@ let getActualProject project =
     project
 
 
-CommandLine.Parser.Default.ParseArguments<Options>(System.Environment.GetCommandLineArgs())
-    .WithParsed<Options>(fun o ->
-        let prj = getActualProject o.project
-
-        if o.create then
+CommandLine.Parser.Default.ParseArguments<CreateOptions, AddOptions>(System.Environment.GetCommandLineArgs())
+    .MapResult(
+        (fun create ->
+            let prj = getActualProject create.project
             createDirectoryBuild prj
-        else
-            addProperty prj o.property o.propertyValue
-
+        ),
+        (fun (add : AddOptions) ->
+            let prj = getActualProject add.project
+            addProperty prj add.property add.value
+        ),
+        fun _ -> ()
     ) |> ignore
 

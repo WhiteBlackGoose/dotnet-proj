@@ -11,8 +11,9 @@
             "preLaunchTask": "Build Debug dotnet-proj",
             "program": "${workspaceFolder}/dotnet-proj/bin/Debug/net6.0/dotnet-proj.dll",
             "args": [
-                // "--create",
+                // "create",
                 // "--object=./tests/Directory.Build.props"
+                "add",
                 "--object=./tests/Directory.Build.props",
                 "--property=Authors",
                 "--value=Me"

@@ -4,7 +4,7 @@ open System.IO
 open System.Xml.Linq
 
 let createDirectoryBuild file =
-    let content = "<Project>\n\n</Project>"
+    let content = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Project>\n\n</Project>"
     File.WriteAllText(file, content)
     let fullFile = Path.GetFullPath file
     printfn $"Written to {fullFile}"
@@ -22,9 +22,9 @@ let addProperty (file : string) property value =
     let projectElement = projects |> Seq.head
     
     let propertyGroup =
-        if projectElement.Elements "PropertyGroup" |> Seq.length > 0 then
-            projectElement.Elements "PropertyGroup" |> Seq.head
-        else
+        match projectElement.Elements () |> Seq.tryLast with
+        | Some element when element.Name = "PropertyGroup" -> element
+        | _ ->
             let element = XElement("PropertyGroup")
             projectElement.Add element
             element
@@ -34,3 +34,5 @@ let addProperty (file : string) property value =
         propertyGroup.Add (XElement(property))
     
     doc.Save file
+
+    printfn $"Saved to {Path.GetFullPath(file)}"
