@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "Build Debug dotnet-proj",
-            "program": "${workspaceFolder}/dotnet-proj/bin/Debug/net6.0/dotnet-proj.dll",
+            "program": "${workspaceFolder}/dotnet-proj-cli/bin/Debug/net6.0/dotnet-proj-cli.dll",
             "args": [
                 // "create",
                 // "--object=./tests/Directory.Build.props"

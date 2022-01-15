@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/dotnet-proj/dotnet-proj.fsproj",
+                "${workspaceFolder}/dotnet-proj-cli/dotnet-proj-cli.fsproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
