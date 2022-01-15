@@ -8,9 +8,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <PackAsTool>true</PackAsTool>
     <ToolCommandName>dotnet-proj</ToolCommandName>
 
-    <Version>0.0.0-alpha</Version>
+    <Version>0.0.1-alpha</Version>
 
     <Authors>WhiteBlackGoose</Authors>
     <Copyright>© WhiteBlackGoose 2022</Copyright>

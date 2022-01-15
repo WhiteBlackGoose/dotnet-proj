@@ -14,9 +14,12 @@
                 // "create",
                 // "--object=./tests/Directory.Build.props"
                 "add",
-                "--object=./tests/Directory.Build.props",
-                "--property=Authors",
-                "--value=Me"
+                "--object",
+                "./tests/Directory.Build.props",
+                "--property",
+                "Authors",
+                "--value",
+                "Me"
             ],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
