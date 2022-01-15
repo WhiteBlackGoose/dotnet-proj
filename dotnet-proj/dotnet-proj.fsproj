@@ -7,6 +7,18 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Authors>WhiteBlackGoose</Authors>
+    <Copyright>© WhiteBlackGoose 2022</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+    <PackageTags>dotnet-cli, cli, dotnet-proj, dotnet, csproj</PackageTags>
+
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/WhiteBlackGoose/dotnet-proj</RepositoryUrl>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="ProjUtils.fs" />
     <Compile Include="Program.fs" />

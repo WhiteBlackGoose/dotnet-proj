@@ -26,9 +26,11 @@ let getActualProject project =
     project
 
 
-CommandLine.Parser.Default.ParseArguments<CreateOptions, AddOptions>(System.Environment.GetCommandLineArgs())
+let args = System.Environment.GetCommandLineArgs()[1..]
+
+CommandLine.Parser.Default.ParseArguments<CreateOptions, AddOptions>(args)
     .MapResult(
-        (fun create ->
+        (fun (create : CreateOptions) ->
             let prj = getActualProject create.project
             createDirectoryBuild prj
         ),

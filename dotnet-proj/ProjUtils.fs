@@ -7,7 +7,7 @@ let createDirectoryBuild file =
     let content = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Project>\n\n</Project>"
     File.WriteAllText(file, content)
     let fullFile = Path.GetFullPath file
-    printfn $"Written to {fullFile}"
+    printfn $"Created in {fullFile}"
 
 let assertFact fact message =
     if not fact then
