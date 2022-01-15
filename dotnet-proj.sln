@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "dotnet-proj", "dotnet-proj\dotnet-proj.fsproj", "{EF7073B1-8DE5-4214-9887-FE14FEBF289C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "dotnet-proj-cli", "dotnet-proj-cli\dotnet-proj-cli.fsproj", "{EF7073B1-8DE5-4214-9887-FE14FEBF289C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
