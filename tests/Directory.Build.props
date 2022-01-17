@@ -3,4 +3,9 @@
   <PropertyGroup>
     <Authors>Me</Authors>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference />
+    <PackageReference />
+    <PackageReference Include="AngouriMath" Version="1.3.0" />
+  </ItemGroup>
 </Project>

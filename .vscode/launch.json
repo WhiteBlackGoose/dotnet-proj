@@ -5,20 +5,32 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "dotnet-proj debug",
+            "name": "dotnet-proj create",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "Build Debug dotnet-proj",
             "program": "${workspaceFolder}/dotnet-proj-cli/bin/Debug/net6.0/dotnet-proj-cli.dll",
             "args": [
-                // "create",
-                // "--object=./tests/Directory.Build.props"
+                "create",
+                "--object=./tests/Directory.Build.props"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "dotnet-proj add property",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build Debug dotnet-proj",
+            "program": "${workspaceFolder}/dotnet-proj-cli/bin/Debug/net6.0/dotnet-proj-cli.dll",
+            "args": [
                 "add",
                 "--object",
                 "./tests/Directory.Build.props",
                 "--property",
                 "Authors",
-                "--value",
+                "--content",
                 "Me"
             ],
             "cwd": "${workspaceFolder}",
@@ -26,9 +38,26 @@
             "stopAtEntry": false
         },
         {
-            "name": ".NET Core Attach",
+            "name": "dotnet-proj add item",
             "type": "coreclr",
-            "request": "attach"
-        }
+            "request": "launch",
+            "preLaunchTask": "Build Debug dotnet-proj",
+            "program": "${workspaceFolder}/dotnet-proj-cli/bin/Debug/net6.0/dotnet-proj-cli.dll",
+            "args": [
+                "add",
+                "--object",
+                "./tests/Directory.Build.props",
+                "--item",
+                "PackageReference",
+                "--attributes",
+                "Include",
+                "AngouriMath",
+                "Version",
+                "1.3.0"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
     ]
 }
