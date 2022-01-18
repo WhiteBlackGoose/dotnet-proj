@@ -61,10 +61,9 @@ CommandLine.Parser.Default.ParseArguments<CreateOptions, AddOptions>(args)
             match getActualProject add.project with
             | [ prj ] ->
                 let pairs =
-                    (add.attributes |> Seq.skip 1)
-                    |> Seq.zip add.attributes
+                    add.attributes
                     |> Seq.chunkBySize 2
-                    |> Seq.map (fun arr -> arr[0])
+                    |> Seq.choose (function [|x;y|] -> Some (x,y) | _ -> None)
                 match (add.property, add.item) with
                 | (Empty, NotEmpty item) ->
                     addPropertyOrItem "Item" prj item add.content pairs
