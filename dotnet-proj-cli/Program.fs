@@ -1,37 +1,53 @@
 ﻿open CommandLine
 open ProjUtils
 open System.Collections.Generic
+open System.IO
 #nowarn "3391" // implicit something
 
-// For more information see https://aka.ms/fsharp-console-apps
 [<Verb("create", HelpText = "Create new manifest file")>]
 type CreateOptions = {
-    [<CommandLine.Option('o', "object", Required = true, HelpText = "Path to Directory.Build.* or csproj etc.")>]
+    [<Option('o', "object", Required = true, HelpText = "Path to Directory.Build.* or csproj etc.")>]
     project : string;
 }
 
 [<Verb("add", HelpText = "Add property to an existing file")>]
 type AddOptions = {
-    [<CommandLine.Option('o', "object", Required = false, HelpText = "Path to Directory.Build.* or csproj etc.")>]
+    [<Option('o', "object", Required = false, HelpText = "Path to Directory.Build.* or csproj etc.")>]
     project : string;
 
-    [<CommandLine.Option('p', "property", SetName = "Type", HelpText = "Property name")>]
+    [<Option('p', "property", SetName = "Type", HelpText = "Property name")>]
     property : string;
 
-    [<CommandLine.Option('i', "item", SetName = "Type", HelpText = "Property name")>]
+    [<Option('i', "item", SetName = "Type", HelpText = "Property name")>]
     item : string;
 
-    [<CommandLine.Option('c', "content", Default = "", Required = false, HelpText = "Path to property")>]
+    [<Option('c', "content", Default = "", Required = false, HelpText = "Path to property")>]
     content : string;
 
-    [<CommandLine.Option('a', "attributes", HelpText = "Path to property")>]
+    [<Option('a', "attributes", HelpText = "Path to property")>]
     attributes : IEnumerable<string>;
 }
 
 
-let getActualProject project =
-    // TODO: make auto-detect
-    project
+let getActualProject = function
+    | NotEmpty path ->
+        [ path ]
+    | Empty ->
+        Directory.GetFiles("./")
+        |> (fun files ->
+            files
+            |> Array.map (fun c -> c[2..])
+        )
+        |> Seq.where (fun c ->
+            c.StartsWith "Directory.Build."
+            // TODO: is it safe to replace with ends with proj?
+            || c.EndsWith ".csproj"
+            || c.EndsWith ".fsproj"
+            || c.EndsWith ".vbproj"
+            || c.EndsWith ".ilproj"
+            )
+        |> List.ofSeq
+
 
 
 let args = System.Environment.GetCommandLineArgs()[1..]
@@ -39,27 +55,33 @@ let args = System.Environment.GetCommandLineArgs()[1..]
 CommandLine.Parser.Default.ParseArguments<CreateOptions, AddOptions>(args)
     .MapResult(
         (fun (create : CreateOptions) ->
-            let prj = getActualProject create.project
-            createDirectoryBuild prj
+            createDirectoryBuild create.project
         ),
         (fun (add : AddOptions) ->
-            let (|NotEmpty|Empty|) = function
-                | "" -> Empty
-                | s when isNull s -> Empty
-                | other -> NotEmpty other
-            
-
-            let prj = getActualProject add.project
-            let pairs =
-                (add.attributes |> Seq.skip 1)
-                |> Seq.zip add.attributes
-                |> Seq.chunkBySize 2
-                |> Seq.map (fun arr -> arr[0])
-            match (add.property, add.item) with
-            | (Empty, NotEmpty item) -> addPropertyOrItem "Item" prj item add.content pairs
-            | (NotEmpty property, Empty) -> addPropertyOrItem "Property" prj property add.content pairs
-            | _ -> printfn $"Specify exactly one: --item or --property"
+            match getActualProject add.project with
+            | [ prj ] ->
+                let pairs =
+                    (add.attributes |> Seq.skip 1)
+                    |> Seq.zip add.attributes
+                    |> Seq.chunkBySize 2
+                    |> Seq.map (fun arr -> arr[0])
+                match (add.property, add.item) with
+                | (Empty, NotEmpty item) ->
+                    addPropertyOrItem "Item" prj item add.content pairs
+                    0
+                | (NotEmpty property, Empty) ->
+                    addPropertyOrItem "Property" prj property add.content pairs
+                    0
+                | _ ->
+                    printfn $"Specify exactly one: --item or --property"
+                    1
+            | [] ->
+                printfn $"No files detected, try specifying explicitly"
+                1
+            | tooMany ->
+                printfn $"Ambiguous choice! {tooMany}"
+                1
         ),
-        fun _ -> ()
-    ) |> ignore
-
+        fun _ -> 1
+    )
+|> exit

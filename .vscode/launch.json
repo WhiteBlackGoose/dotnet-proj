@@ -27,13 +27,13 @@
             "args": [
                 "add",
                 "--object",
-                "./tests/Directory.Build.props",
+                "./Directory.Build.props",
                 "--property",
                 "Authors",
                 "--content",
                 "Me"
             ],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/tests",
             "console": "internalConsole",
             "stopAtEntry": false
         },
@@ -46,7 +46,7 @@
             "args": [
                 "add",
                 "--object",
-                "./tests/Directory.Build.props",
+                "./Directory.Build.props",
                 "--item",
                 "PackageReference",
                 "--attributes",
@@ -55,7 +55,27 @@
                 "Version",
                 "1.3.0"
             ],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/tests",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "dotnet-proj add item auto",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build Debug dotnet-proj",
+            "program": "${workspaceFolder}/dotnet-proj-cli/bin/Debug/net6.0/dotnet-proj-cli.dll",
+            "args": [
+                "add",
+                "-i",
+                "PackageReference",
+                "-a",
+                "Include",
+                "MoreFuncUI",
+                "Version",
+                "1.0.0"
+            ],
+            "cwd": "${workspaceFolder}/tests",
             "console": "internalConsole",
             "stopAtEntry": false
         },

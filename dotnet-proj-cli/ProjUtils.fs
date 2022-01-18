@@ -4,11 +4,41 @@ open System.IO
 open System.Xml.Linq
 #nowarn "3391" // implicit something
 
-let createDirectoryBuild file =
-    let content = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Project>\n\n</Project>"
-    File.WriteAllText(file, content)
-    let fullFile = Path.GetFullPath file
-    printfn $"Created in {fullFile}"
+
+let (|NotEmpty|Empty|) = function
+    | "" -> Empty
+    | s when isNull s -> Empty
+    | other -> NotEmpty other
+
+let (|StartsWith|_|) (s : string) (input : string) =
+    if input.StartsWith s then
+        Some input[s.Length..]
+    else
+        None
+
+let (|EndsWith|_|) (s : string) (input : string) =
+    if input.EndsWith s then
+        Some input[..s.Length]
+    else
+        None
+
+let createDirectoryBuild (file : string) =
+    let content =
+        match file with
+        | StartsWith "Directory.Build." _ ->
+            "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Project>\n\n</Project>" |> Some
+        | EndsWith "proj" _ ->
+            "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Project Sdk=\"Microsoft.NET.Sdk\">\n\n</Project>" |> Some
+        | _ -> None
+    match content with
+    | Some content ->
+        File.WriteAllText(file, content)
+        let fullFile = Path.GetFullPath file
+        printfn $"Created in {fullFile}"
+        0
+    | None ->
+        printfn $"Cannot detect the right format, create *proj or Directory.Build.* files"
+        1
 
 let assertFact fact message =
     if not fact then
@@ -32,9 +62,11 @@ let addPropertyOrItem (typeName : string) (file : string) property value attribu
     let attributesToInsert = 
         attributes
             |> Seq.map (fun (a : string, b : string) -> XAttribute(a, b))
-    if value <> "" then
+    
+    match value with
+    | NotEmpty value ->
         group.Add (XElement(property, value, attributesToInsert))
-    else
+    | Empty ->
         group.Add (XElement(property, attributesToInsert))
     
     doc.Save file
