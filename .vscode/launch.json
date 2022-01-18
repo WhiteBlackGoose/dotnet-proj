@@ -15,7 +15,7 @@
                 "--object",
                 "Directory.Build.props"
             ],
-            "cwd": "${workspaceFolder}/tests",
+            "cwd": "${workspaceFolder}/testOutput",
             "console": "internalConsole",
             "stopAtEntry": false
         },
@@ -30,7 +30,7 @@
                 "-o",
                 "./heh/MyProject.fsproj"
             ],
-            "cwd": "${workspaceFolder}/tests",
+            "cwd": "${workspaceFolder}/testOutput",
             "console": "internalConsole",
             "stopAtEntry": false
         },
@@ -49,7 +49,7 @@
                 "--content",
                 "Me"
             ],
-            "cwd": "${workspaceFolder}/tests",
+            "cwd": "${workspaceFolder}/testOutput",
             "console": "internalConsole",
             "stopAtEntry": false
         },
@@ -71,7 +71,7 @@
                 "Version",
                 "1.3.0"
             ],
-            "cwd": "${workspaceFolder}/tests",
+            "cwd": "${workspaceFolder}/testOutput",
             "console": "internalConsole",
             "stopAtEntry": false
         },
@@ -91,7 +91,7 @@
                 "Version",
                 "1.0.0"
             ],
-            "cwd": "${workspaceFolder}/tests",
+            "cwd": "${workspaceFolder}/testOutput",
             "console": "internalConsole",
             "stopAtEntry": false
         },
