@@ -11,7 +11,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>dotnet-proj</ToolCommandName>
 
-    <Version>0.0.4-alpha</Version>
+    <Version>0.0.5-alpha</Version>
 
     <Authors>WhiteBlackGoose</Authors>
     <Copyright>© WhiteBlackGoose 2022</Copyright>

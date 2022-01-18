@@ -33,7 +33,7 @@ let getActualProject = function
     | NotEmpty path ->
         [ path ]
     | Empty ->
-        Directory.GetFiles("./")
+        Directory.GetFiles "./"
         |> Seq.map (fun c -> c[2..])
         |> Seq.where (fun c ->
             c.StartsWith "Directory.Build."

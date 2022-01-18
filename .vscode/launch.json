@@ -28,7 +28,7 @@
             "args": [
                 "create",
                 "-o",
-                "./heh/MyProject.fsproj"
+                "./he/sdf/sdfsd/h/MyProject.fsproj"
             ],
             "cwd": "${workspaceFolder}/testOutput",
             "console": "internalConsole",
