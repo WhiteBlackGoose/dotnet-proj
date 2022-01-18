@@ -12,22 +12,22 @@ let (|NotEmpty|Empty|) = function
 
 let (|StartsWith|_|) (s : string) (input : string) =
     if input.StartsWith s then
-        Some input[s.Length..]
+        Some ()
     else
         None
 
 let (|EndsWith|_|) (s : string) (input : string) =
     if input.EndsWith s then
-        Some input[..s.Length]
+        Some ()
     else
         None
 
 let createDirectoryBuild (file : string) =
     let content =
         match file with
-        | StartsWith "Directory.Build." _ ->
+        | StartsWith "Directory.Build." ->
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Project>\n\n</Project>" |> Some
-        | EndsWith "proj" _ ->
+        | EndsWith "proj" ->
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Project Sdk=\"Microsoft.NET.Sdk\">\n\n</Project>" |> Some
         | _ -> None
     match content with

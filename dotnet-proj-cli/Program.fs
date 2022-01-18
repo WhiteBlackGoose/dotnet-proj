@@ -34,10 +34,7 @@ let getActualProject = function
         [ path ]
     | Empty ->
         Directory.GetFiles("./")
-        |> (fun files ->
-            files
-            |> Array.map (fun c -> c[2..])
-        )
+        |> Seq.map (fun c -> c[2..])
         |> Seq.where (fun c ->
             c.StartsWith "Directory.Build."
             // TODO: is it safe to replace with ends with proj?

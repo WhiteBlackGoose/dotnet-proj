@@ -6,4 +6,7 @@
   <ItemGroup>
     <PackageReference Include="MoreFuncUI" Version="1.0.0" />
   </ItemGroup>
+  <PropertyGroup>
+    <Authors>Me</Authors>
+  </PropertyGroup>
 </Project>
