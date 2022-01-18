@@ -12,9 +12,25 @@
             "program": "${workspaceFolder}/dotnet-proj-cli/bin/Debug/net6.0/dotnet-proj-cli.dll",
             "args": [
                 "create",
-                "--object=./tests/Directory.Build.props"
+                "--object",
+                "Directory.Build.props"
             ],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/tests",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "dotnet-proj create fsproj in folder",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build Debug dotnet-proj",
+            "program": "${workspaceFolder}/dotnet-proj-cli/bin/Debug/net6.0/dotnet-proj-cli.dll",
+            "args": [
+                "create",
+                "-o",
+                "./heh/MyProject.fsproj"
+            ],
+            "cwd": "${workspaceFolder}/tests",
             "console": "internalConsole",
             "stopAtEntry": false
         },
