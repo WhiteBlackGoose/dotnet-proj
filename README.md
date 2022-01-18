@@ -1,10 +1,10 @@
-## dotnet-proj
+# dotnet-proj
 
 CLI tool to work with Directory.Build.props/csproj/fsproj etc.
 
 ![screenshot](./screenshot.PNG)
 
-### Install
+## Install
 
 Install:
 ```
@@ -16,6 +16,8 @@ Update:
 ```
 dotnet tool update dotnet-proj-cli --global --prerelease
 ```
+
+## Use
 
 ### Create
 
