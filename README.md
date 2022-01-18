@@ -2,21 +2,29 @@
 
 CLI tool to work with Directory.Build.props/csproj/fsproj etc.
 
+![screenshot](./screenshot.PNG)
+
 ### Install
 
-```
-dotnet tool install dotnet-proj-cli --prerelease
-```
-or
+Install:
 ```
 dotnet tool install dotnet-proj-cli --global --prerelease
 ```
 (not to confuse with another tool, `dotnet-proj`!)
 
+Update:
+```
+dotnet tool update dotnet-proj-cli --global --prerelease
+```
+
 ### Create
 
 ```
 dotnet proj create Directory.Build.props
+```
+
+```
+dotnet proj create MyProject.csproj
 ```
 
 ### Add
